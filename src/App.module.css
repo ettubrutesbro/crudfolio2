@@ -1,0 +1,19 @@
+
+.project {
+    position: relative;
+    /* color: red; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.floaterOn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+}
+
+.floaterOff {
+    display: none;
+    /* opacity: 0.1; */
+}
