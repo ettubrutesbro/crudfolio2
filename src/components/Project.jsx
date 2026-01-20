@@ -21,24 +21,23 @@ const Project = (props) => {
   }
 
   return (
-    <>
-      <Floater
-        isOpen={showFloater}
-        onClose={handleClose}
-        title={props.name}
-        content={props.blurb}
-        rowRect={rowRect}
-      />
-      <li
-        ref={rowRef}
-        className={styles.project}
-        onClick={handleClick}
-        style = {{zIndex: props.i}}
-      >
-        <div>{props.name}</div>
-        <div>{props.year}</div>
-      </li>
-    </>
+    <li
+      ref={rowRef}
+      className={styles.project}
+      onClick={handleClick}
+      style={{zIndex: props.i}}
+    >
+      <div>{props.name}</div>
+      <div>{props.year}</div>
+      <div className={styles.floaterContainer}>
+        <Floater
+          isOpen={showFloater}
+          onClose={handleClose}
+          title={props.name}
+          content={props.blurb}
+        />
+      </div>
+    </li>
   )
 }
 
