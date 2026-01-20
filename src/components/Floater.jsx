@@ -109,43 +109,6 @@ const Floater = ({ isOpen, onClose, title, content }) => {
     [curveParams.startRotation, curveParams.endRotation]
   )
 
-  useEffect(() => {
-    if (!isDragging) return
-
-    const handleMouseMove = (e) => {
-      // For dragging with absolute positioned floater inside container
-      const container = floaterRef.current.parentElement
-      const containerRect = container.getBoundingClientRect()
-
-      setPosition({
-        x: e.clientX - containerRect.left - dragOffset.x,
-        y: e.clientY - containerRect.top - dragOffset.y
-      })
-    }
-
-    const handleMouseUp = () => {
-      setIsDragging(false)
-    }
-
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [isDragging, dragOffset])
-
-  const handleMouseDown = (e) => {
-    if (e.target.tagName === 'BUTTON' || isAnimating) return
-
-    const rect = floaterRef.current.getBoundingClientRect()
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    })
-    setIsDragging(true)
-  }
 
   const handleClose = () => {
     setPosition(null)
@@ -157,34 +120,37 @@ const Floater = ({ isOpen, onClose, title, content }) => {
   if (!isOpen || !position) return null
 
   return (
-    <motion.div
-      key={animKey}
-      ref={floaterRef}
-      className={styles.floater}
-      style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        x: isAnimating ? translateX : 0,
-        y: isAnimating ? translateY : 0,
-        // rotate: isAnimating ? rotate : 0,
-        cursor: isDragging ? 'grabbing' : 'grab',
-        pointerEvents: 'auto',
-        willChange: isAnimating ? 'transform' : 'auto'
-      }}
-      onMouseDown={handleMouseDown}
-      initial={{ rotate: -15 }}
-      animate={{ rotate: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <button
-        className={styles.closeButton}
-        onClick={handleClose}
+    <div className={isAnimating? styles.containerAnim : styles.container }>
+      <motion.div
+        drag
+        key={animKey}
+        ref={floaterRef}
+        className={styles.floater}
+        style={{
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+          x: isAnimating ? translateX : 0,
+          y: isAnimating ? translateY : 0,
+          // rotate: isAnimating ? rotate : 0,
+          cursor: isDragging ? 'grabbing' : 'grab',
+          pointerEvents: 'auto',
+          willChange: isAnimating ? 'transform' : 'auto'
+        }}
+        // onMouseDown={handleMouseDown}
+        initial={{ rotate: -15 }}
+        animate={{ rotate: 0 }}
+        transition={{ duration: 0.3 }}
       >
-        ×
-      </button>
-      <h3>{title}</h3>
-      <p>{content}</p>
-    </motion.div>
+        <button
+          className={styles.closeButton}
+          onClick={handleClose}
+        >
+          ×
+        </button>
+        <h3>{title}</h3>
+        <p>{content}</p>
+      </motion.div>
+    </div>
   )
 }
 

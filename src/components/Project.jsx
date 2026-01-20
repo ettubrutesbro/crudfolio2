@@ -16,6 +16,7 @@ const Project = (props) => {
   }
 
   const handleClose = () => {
+    console.log('closing floater')
     setShowFloater(false)
     setRowRect(null)
   }
@@ -24,19 +25,20 @@ const Project = (props) => {
     <li
       ref={rowRef}
       className={styles.project}
-      onClick={handleClick}
-      style={{zIndex: props.i}}
+      onClick={!showFloater? handleClick : ''}
+      // style={{zIndex: props.i}}
     >
       <div>{props.name}</div>
       <div>{props.year}</div>
-      <div className={styles.floaterContainer}>
-        <Floater
-          isOpen={showFloater}
-          onClose={handleClose}
-          title={props.name}
-          content={props.blurb}
-        />
-      </div>
+      {showFloater && 
+        
+          <Floater
+            isOpen={showFloater}
+            onClose={handleClose}
+            title={props.name}
+            content={props.blurb}
+          />
+      }
     </li>
   )
 }

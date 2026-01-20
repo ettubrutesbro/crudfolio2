@@ -41,3 +41,29 @@
         color: black;
     }
 }
+
+.container {
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+}
+
+.containerAnim {
+    border: 1px solid red;
+    color: red;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    clip-path: inset(-1000px -300px 0 -300px); 
+    z-index: 1000;
+}
+
+/* .floaterContainer[data-animating="true"] {
+    clip-path: inset(0 0 0 0);
+} */
