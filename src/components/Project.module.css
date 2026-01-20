@@ -1,0 +1,61 @@
+
+.project {
+    position: relative;
+    /* color: red; */
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 16px 0;
+    cursor: pointer;
+    &:hover{
+         color: blue;
+         border-bottom: 1px solid black;
+    }
+    &::before{
+        position: absolute;
+        width: calc(100% + 32px); height: 100%;
+        top: 0; left: -16px;
+        content: '';
+        transform: scale(0.25,1);
+        background: #eee;
+        /* transition: transform .3s; */
+        visibility: hidden;
+    }
+    &::after{
+        visibility: hidden;
+        content: '';
+        position: absolute;
+        transform: scale(0.25,1);
+        left: -16px;
+        bottom: -1px;
+        width: calc(100% + 32px);
+        /* height: calc(100% - 1px); */
+        height: 100%;
+        border: 1px solid blue;
+    }
+    &:hover::after{
+        visibility: visible;
+        transform: scale(1,1);
+        /* transition: transform .3s; */
+    }
+    &:hover::before{
+        visibility: visible;
+        transform: scale(1,1);
+    }
+    div {
+        z-index: 1;
+    }
+}
+
+.projectList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    font-weight: normal;
+    border-bottom: 1px solid black;
+    padding: 8px 0;
+    margin: 0;
+}

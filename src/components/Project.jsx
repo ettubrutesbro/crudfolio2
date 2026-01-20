@@ -1,0 +1,54 @@
+import { useState, useRef } from 'react'
+import styles from './Project.module.css'
+import Floater from './Floater'
+
+const Project = (props) => {
+  const [showFloater, setShowFloater] = useState(false)
+  const [rowRect, setRowRect] = useState(null)
+  const rowRef = useRef(null)
+
+  const handleClick = () => {
+    if (!showFloater) {
+      const rect = rowRef.current.getBoundingClientRect()
+      setRowRect(rect)
+    }
+    setShowFloater(!showFloater)
+  }
+
+  const handleClose = () => {
+    setShowFloater(false)
+    setRowRect(null)
+  }
+
+  return (
+    <>
+      <Floater
+        isOpen={showFloater}
+        onClose={handleClose}
+        title={props.name}
+        content={props.blurb}
+        rowRect={rowRect}
+      />
+      <li
+        ref={rowRef}
+        className={styles.project}
+        onClick={handleClick}
+        style = {{zIndex: props.i}}
+      >
+        <div>{props.name}</div>
+        <div>{props.year}</div>
+      </li>
+    </>
+  )
+}
+
+export const ProjectList = (props) => {
+    return (
+        <ul className = {styles.projectList}>
+            <h4 className = {styles.header}> Selected projects:</h4>
+            {props.children}
+        </ul>
+    )
+}
+
+export default Project
