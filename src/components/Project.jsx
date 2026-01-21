@@ -35,8 +35,6 @@ export const ProjectList = (props) => {
 
     const activeFloaters = useDuck((state) => state.activeFloaters)
 
-    //no likey: floater container and the ul are both iterating but use different models, where there's a map in floatercontainer, and then in the ul, its a map being passed in by the parent....
-
     return (
         <div className={styles.projectsWrapper}>
             <h4 className={styles.header}> Selected projects:</h4>
