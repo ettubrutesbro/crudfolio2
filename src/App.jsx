@@ -4,7 +4,35 @@ import PROJECTS from './assets/projects.json'
 import Project, {ProjectList} from './components/Project'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeFloaters, setActiveFloaters] = useState({})
+
+  const handleToggleFloater = (projectId, rect, projectData) => {
+    setActiveFloaters(prev => {
+      if (prev[projectId]) {
+        // Close floater
+        const newFloaters = { ...prev }
+        delete newFloaters[projectId]
+        return newFloaters
+      } else {
+        // Open floater
+        return {
+          ...prev,
+          [projectId]: {
+            rect,
+            ...projectData
+          }
+        }
+      }
+    })
+  }
+
+  const handleCloseFloater = (projectId) => {
+    setActiveFloaters(prev => {
+      const newFloaters = { ...prev }
+      delete newFloaters[projectId]
+      return newFloaters
+    })
+  }
 
   return (
     <>
@@ -16,12 +44,15 @@ function App() {
             <a href = "linkedin.com">LinkedIn profile ></a>
             <a href = "mailto:jack.leng(AT)gmail.com">E-mail me ></a>
         </address>
-        <ProjectList>
+        <ProjectList activeFloaters={activeFloaters} onCloseFloater={handleCloseFloater}>
           {PROJECTS.map((p,i)=>{
             return (
               <Project
                 key = {`project-${i}`}
+                projectId = {`project-${i}`}
                 i = {i}
+                isFloaterOpen = {!!activeFloaters[`project-${i}`]}
+                onToggleFloater = {handleToggleFloater}
                 {...p}
               />
             )

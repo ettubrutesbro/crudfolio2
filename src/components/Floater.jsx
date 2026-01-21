@@ -3,7 +3,7 @@ import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import clsx from 'clsx'
 import styles from './Floater.module.css'
 
-const Floater = ({ isOpen, onClose, title, content, isTall, imageId }) => {
+const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect }) => {
   const imageSrc = imageId ? `/assets/thumbnails/${imageId}.png` : null
   const [position, setPosition] = useState(null)
   const [startOffset, setStartOffset] = useState(null)
@@ -12,6 +12,7 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId }) => {
   const [isAnimating, setIsAnimating] = useState(false)
   const [animKey, setAnimKey] = useState(0)
   const floaterRef = useRef(null)
+  const containerRef = useRef(null)
 
   // Motion value for animation
   const animationProgress = useMotionValue(0)
@@ -25,12 +26,12 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId }) => {
   }), [animKey])
 
   useEffect(() => {
-    if (isOpen) {
-      // Calculate final position (relative to parent container)
-      const finalPosition = calculatePosition()
+    if (isOpen && rowRect) {
+      // Calculate final position (relative to the wrapper container)
+      const finalPosition = calculatePosition(rowRect)
 
       // Calculate start position and the offset from final
-      const startPos = calculateStartPosition()
+      const startPos = calculateStartPosition(rowRect)
       const offset = {
         x: startPos.x - finalPosition.x,
         y: startPos.y - finalPosition.y
@@ -54,28 +55,37 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId }) => {
       setStartOffset(null)
       animationProgress.set(0)
     }
-  }, [isOpen])
+  }, [isOpen, rowRect])
 
-  const calculatePosition = () => {
+  const calculatePosition = (rect) => {
+    if (!containerRef.current) return { x: 0, y: 0 }
+
     const floaterWidth = 300
     const floaterHeight = 200
 
-    // X: random position relative to parent, with variance
-    const xVariance = (Math.random() * 0.8 - 0.7) * floaterWidth
-    const x = 400 + xVariance // Base position from left of parent
+    // Get the wrapper's position to calculate relative offset
+    const wrapperRect = containerRef.current.parentElement.getBoundingClientRect()
 
-    // Y: position above the row (negative because parent is at 100% / bottom)
+    // X: random position, but relative to the row's position in the wrapper
+    const xVariance = (Math.random() * 0.8 - 0.7) * floaterWidth
+    const x = (rect.left - wrapperRect.left) + 400 + xVariance
+
+    // Y: position above the row
     const yVariance = -Math.random() * 0.5 * floaterHeight
-    const y = -floaterHeight - yVariance
+    const y = (rect.top - wrapperRect.top) - floaterHeight - yVariance
 
     return { x, y }
   }
 
-  const calculateStartPosition = () => {
+  const calculateStartPosition = (rect) => {
+    if (!containerRef.current) return { x: 0, y: 0 }
+
     const floaterWidth = 300
+    const wrapperRect = containerRef.current.parentElement.getBoundingClientRect()
+
     return {
-      x: (floaterWidth + Math.random() * 50),
-      y: 180
+      x: (rect.left - wrapperRect.left) + floaterWidth + Math.random() * 50,
+      y: (rect.top - wrapperRect.top) + 180
     }
   }
 
@@ -124,7 +134,7 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId }) => {
   console.log('Floater isTall:', isTall, 'classes:', clsx(styles.floater, isTall && styles.tall))
 
   return (
-    <div className={isAnimating? styles.containerAnim : styles.container }>
+    <div ref={containerRef} className={isAnimating? styles.containerAnim : styles.container }>
       <motion.div
         drag
         key={animKey}
