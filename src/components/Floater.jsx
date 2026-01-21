@@ -2,6 +2,9 @@ import { useState, useRef, useEffect, useMemo } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import styles from './Floater.module.css'
 
+import snakeImg from '/assets/thumbnails/snake.png'
+import scorecardImg from '/assets/thumbnails/scorecard.png'
+
 const Floater = ({ isOpen, onClose, title, content }) => {
   const [position, setPosition] = useState(null)
   const [startOffset, setStartOffset] = useState(null)
@@ -141,13 +144,18 @@ const Floater = ({ isOpen, onClose, title, content }) => {
         animate={{ rotate: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <button
-          className={styles.closeButton}
-          onClick={handleClose}
-        >
-          ×
-        </button>
-        <h3>{title}</h3>
+        <header>
+          <button
+            className={styles.closeButton}
+            onClick={handleClose}
+          >
+            ×
+          </button>
+          <h3>{title}</h3>
+        </header>
+        <figure className = {styles.pic}>
+          <img src = {snakeImg} />
+        </figure>
         <p>{content}</p>
       </motion.div>
     </div>

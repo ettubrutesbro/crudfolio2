@@ -6,6 +6,9 @@
     padding: 24px;
     z-index: 1000;
     user-select: none;
+    max-height: 450px;
+    display: flex;
+    flex-direction: column;
 }
 
 .floater h3 {
@@ -67,3 +70,15 @@
 /* .floaterContainer[data-animating="true"] {
     clip-path: inset(0 0 0 0);
 } */
+
+.pic{
+    width: 100%;
+    margin: 0; 
+    padding: 0;
+    * {
+        width: 100%;
+        flex-shrink: 1;
+        margin: 0; padding: 0;
+    }
+
+}

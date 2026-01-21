@@ -56,7 +56,6 @@
   {
     "id": "scorecard",
     "name": "Childrens' health scorecard",
-    "name": "Childrens' health scorecard",
     "year": "2018",
     "blurb": "Solo 0→1 design and dev revolutionizing how Children Now advocates for kids' wellness with a dynamic, layered, and easy-to-explore data visualization for web and mobile, using SVG, React, styled-components, MobX, and Storybook."
   },
