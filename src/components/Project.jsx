@@ -10,6 +10,7 @@ const Project = (props) => {
 
   const handleClick = (e) => {
     const rect = rowRef.current.getBoundingClientRect()
+    //THIS may be the point at which the mask needs to be calculated, so that it stays in state and is specific to each floater
     console.log(`clicked rect ${rect.top} at ${e.clientX - rect.left}`)
     setFloaters({
       ...props,
