@@ -9,33 +9,39 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i 
 
   const imageSrc = imageId? `assets/thumbnails/${imageId}.png` : null
 
-  console.log(rowRect.top)
-  console.log(window.scrollY)
-  console.log(rowRect.top + window.scrollY)
+  // Calculate these values once on mount and freeze them
+  const frozenStyles = useMemo(() => {
+    if (!rowRect) return {}
+
+    const scrollY = window.scrollY
+    console.log('Calculating frozen styles - rowRect.top:', rowRect.top, 'scrollY:', scrollY)
+
+    return {
+      mask: {
+        left: -rowRect.left,
+        width: '100vw',
+        top: -((rowRect.top + scrollY) - (rowRect.height * i)) + 'px',
+        height: (rowRect.top) + scrollY + rowRect.height - 2 + 'px',
+        background: 'rgba(255,0,0,0.1)'
+      },
+      floater: {
+        left: rowRect.left,
+        top: rowRect.top + scrollY + rowRect.height - 10
+      }
+    }
+  }, []) // Empty dependency array = only calculate once on mount
 
   return (
     <div
       ref={containerRef}
       className={styles.mask}
-      style={{
-        left: rowRect? -rowRect.left : '',
-        // left: 0,
-        // bottom: rowRect? rowRect.bottom - rowRect.top: '',
-        width: '100vw',
-        top: rowRect? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : '',
-        height: rowRect? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : '',
-        background: 'rgba(255,0,0,0.1)'
-      }}
+      style={frozenStyles.mask}
     >
       <motion.div
         drag
         ref={floaterRef}
         className={clsx(styles.floater, isTall && styles.tall)}
-        style = {{
-          //these values are where it should start, so begin the
-          left: rowRect? rowRect.left : '',
-          top: rowRect? rowRect.top + window.scrollY + rowRect.height - 10 : ''
-        }}
+        style={frozenStyles.floater}
       >
         <header>
           <button
