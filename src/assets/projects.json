@@ -1,65 +1,79 @@
 [
   {
+    "id": "compare",
     "name": "Drawing Compare",
     "year": "2025",
     "blurb": "Redesigned drawing comparison for AutoCAD Web: from 0.2% usage on desktop to highest driver of adoption on web."
   },
   {
+    "id": "search",
     "name": "Search",
     "year": "2025",
     "blurb": "Multiple search features from 2022-2025, covering in-drawing text, tabbed dialogs (i.e. settings), and file manager (where I also handled front-end implementation)."
   },
   {
+    "id": "autocat",
     "name": "Hackathon t-shirt",
     "year": "2025",
     "blurb": "Is it possible to design hackathon swag teammates actually want to wear? Reversing a decade-plus of \"no\" on our team through informal research, getting into the details of garment design, and cats."
   },
   {
+    "id": "snake",
     "name": "Year of the Snake poster",
     "year": "2025",
     "blurb": "Digital illustration → 2-color print to ring in last lunar new year, trying to overcome the snake's culturally-ubiquitous bad reputation."
   },
   {
+    "id": "FDC",
     "name": "Capturing field data with LiDAR",
     "year": "2024",
     "blurb": "New use case for AutoCAD mobile: integrating on-site mobile data capture into project drawings through photos, videos, and LiDAR / RoomPlan API."
   },
   {
+    "id": "continuity",
     "name": "Cloud drawing continuity",
     "year": "2023",
     "blurb": "Building trust in the cloud with a traditional, skeptical user base with highly-transparent, provider-agnostic file access across devices."
   },
   {
+    "id": "lisp",
     "name": "Custom LISP plugin support",
     "year": "2022",
     "blurb": "Designing-by-code to support 40 years of customer-made plugins on Web for the first time."
   },
   {
+    "id": "notifs",
     "name": "Notifications refactor",
     "year": "2022",
     "blurb": "Systematizing a decade-plus of ever-accumulating, customer-irritating messaging with a logical, extensible framework for notification design."
   },
   {
+    "id": "proteus",
     "name": "Web apps design technology",
     "year": "2019",
     "blurb": "Design systems (Storybook, Figma API), human processes (design-engineering handoff, design systems compliance), engineering mentorship on the web apps team at Proteus Digital Health."
   },
   {
+    "id": "scorecard",
+    "name": "Childrens' health scorecard",
     "name": "Childrens' health scorecard",
     "year": "2018",
     "blurb": "Solo 0→1 design and dev revolutionizing how Children Now advocates for kids' wellness with a dynamic, layered, and easy-to-explore data visualization for web and mobile, using SVG, React, styled-components, MobX, and Storybook."
   },
   {
+    "id": "salesnav",
     "name": "LinkedIn Sales Navigator integration",
     "year": "2017",
     "blurb": "Solo 0→1 design and dev for Sendbloom's integration of marquee new LinkedIn feature: started to shipped in 1 week, to coincide with LinkedIn's official product announcement."
   },
   {
+    "id": "goals",
     "name": "Goals & Tasks tracking",
     "year": "2017",
     "blurb": "Solo 0→1 design and dev of widget and panel designed for sales reps to track and rank their progress towards team-set goals on Sendbloom."
   },
   {
+    "id": "aptec",
     "name": "Optimizing email campaigns",
     "year": "2017",
     "blurb": "Solo 0→1 design and dev enabling sales reps to add new recipients into an ongoing email campaign, by user request - using animation to preserve context and delight across multiple steps."
@@ -83,6 +97,7 @@
     "name": "Mars spaceflight mission design",
     "year": "2014",
     "blurb": "Produced initial pitch animation, then final, one-shot (no \"camera cuts\") 15-minute presentation showcasing Eclipse Rocketry Club at Davis' proposal for a manned flyby of Mars. Took 4th place of 38 among international qualifiers for Inspiration Mars conference in Houston."
+
   },
   {
     "name": "Assorted pitch videos",
