@@ -3,6 +3,31 @@ import './App.css'
 import PROJECTS from './assets/projects.json'
 import Project, {ProjectList} from './components/Project'
 
+import {create} from 'zustand'
+
+export const useDuck = create((set) => ({
+    activeFloaters: [],
+    setFloaters: (newFloater) => set((state) => {
+      console.log('before:', state.activeFloaters)
+      console.log('toggling:', newFloater.id)
+      
+      // Find if this floater already exists based on id (or another unique property)
+      const existingIndex = state.activeFloaters.findIndex(f => f.id === newFloater.id)
+      
+      if (existingIndex !== -1) {
+        // Remove it if it exists
+        console.log('remove')
+        const newArray = [...state.activeFloaters]
+        newArray.splice(existingIndex, 1)
+        return { activeFloaters: newArray }
+      } else {
+        // Add it if it doesn't exist
+        console.log('add')
+        return { activeFloaters: [...state.activeFloaters, newFloater] }
+      }
+    })
+}))
+
 function App() {
 
 
@@ -21,7 +46,7 @@ function App() {
             return (
               <Project
                 key = {`project-${i}`}
-                projectId = {`project-${i}`}
+                projectId = {p.id}
                 i = {i}
                 {...p}
               />

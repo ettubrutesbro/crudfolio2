@@ -1,21 +1,21 @@
 import { useRef, useState } from 'react'
+import { useDuck } from '../App'
+
 import styles from './Project.module.css'
 import FloaterContainer from './FloaterContainer'
 
 const Project = (props) => {
   const rowRef = useRef(null)
+  const setFloaters = useDuck((state) => state.setFloaters)
 
   const handleClick = (e) => {
-    console.log(e)
-    if (!props.isFloaterOpen) {
-      const rect = rowRef.current.getBoundingClientRect()
-      props.onToggleFloater(props.projectId, rect, {
-        name: props.name,
-        blurb: props.blurb,
-        isTall: props.isTall,
-        id: props.id
-      })
-    }
+    const rect = rowRef.current.getBoundingClientRect()
+    console.log(`clicked rect ${rect.top} at ${e.clientX - rect.left}`)
+    setFloaters({
+      ...props,
+      rowRect: rect
+    })
+
   }
 
   return (
@@ -31,7 +31,9 @@ const Project = (props) => {
 }
 
 export const ProjectList = (props) => {
-    const [activeFloaters, setFloaters] = useState([])
+
+    const activeFloaters = useDuck((state) => state.activeFloaters)
+
     return (
         <div className={styles.projectsWrapper}>
             <h4 className={styles.header}> Selected projects:</h4>
