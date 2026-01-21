@@ -1,11 +1,12 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styles from './Project.module.css'
 import FloaterContainer from './FloaterContainer'
 
 const Project = (props) => {
   const rowRef = useRef(null)
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    console.log(e)
     if (!props.isFloaterOpen) {
       const rect = rowRef.current.getBoundingClientRect()
       props.onToggleFloater(props.projectId, rect, {
@@ -30,15 +31,15 @@ const Project = (props) => {
 }
 
 export const ProjectList = (props) => {
+    const [activeFloaters, setFloaters] = useState([])
     return (
         <div className={styles.projectsWrapper}>
+            <h4 className={styles.header}> Selected projects:</h4>
             <ul className={styles.projectList}>
-                <h4 className={styles.header}> Selected projects:</h4>
                 {props.children}
             </ul>
             <FloaterContainer
-                activeFloaters={props.activeFloaters}
-                onCloseFloater={props.onCloseFloater}
+                activeFloaters={activeFloaters}
             />
         </div>
     )

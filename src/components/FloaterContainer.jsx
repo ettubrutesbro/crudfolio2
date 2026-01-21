@@ -4,7 +4,7 @@ import styles from './FloaterContainer.module.css'
 const FloaterContainer = ({ activeFloaters, onCloseFloater }) => {
   return (
     <div className={styles.floaterContainer}>
-      {Object.entries(activeFloaters).map(([projectId, floaterData]) => (
+      {activeFloaters.map(([projectId, floaterData]) => (
         <Floater
           key={projectId}
           isOpen={true}
@@ -14,6 +14,8 @@ const FloaterContainer = ({ activeFloaters, onCloseFloater }) => {
           isTall={floaterData.isTall}
           imageId={floaterData.id}
           rowRect={floaterData.rect}
+
+          
         />
       ))}
     </div>

@@ -1,9 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
   max-width: 720px;
   margin: 200px auto;
   padding: 2rem;
   /* text-align: center; */
 }
+
 
 address {
   display: inline-flex;
