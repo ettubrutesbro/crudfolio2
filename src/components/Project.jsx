@@ -37,6 +37,8 @@ const Project = (props) => {
             onClose={handleClose}
             title={props.name}
             content={props.blurb}
+            isTall={props.isTall}
+            imageId={props.id}
           />
       }
     </li>

@@ -1,14 +1,19 @@
 .floater {
     position: absolute;
-    width: 300px;
+    width: auto;
+    max-width: 300px;
     border: 1px solid black;
     background: #eeeeee;
-    padding: 24px;
+    padding: 16px;
     z-index: 1000;
     user-select: none;
-    max-height: 450px;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+}
+
+.floater.tall {
+    max-width: 200px;
 }
 
 .floater h3 {
@@ -67,18 +72,15 @@
     z-index: 1000;
 }
 
-/* .floaterContainer[data-animating="true"] {
-    clip-path: inset(0 0 0 0);
-} */
 
-.pic{
+.pic {
     width: 100%;
-    margin: 0; 
+    margin: 0 0 12px 0;
     padding: 0;
-    * {
-        width: 100%;
-        flex-shrink: 1;
-        margin: 0; padding: 0;
-    }
+}
 
+.pic img {
+    width: 100%;
+    height: auto;
+    display: block;
 }

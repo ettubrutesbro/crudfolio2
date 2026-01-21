@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'motion/react'
+import clsx from 'clsx'
 import styles from './Floater.module.css'
 
-import snakeImg from '/assets/thumbnails/snake.png'
-import scorecardImg from '/assets/thumbnails/scorecard.png'
-
-const Floater = ({ isOpen, onClose, title, content }) => {
+const Floater = ({ isOpen, onClose, title, content, isTall, imageId }) => {
+  const imageSrc = imageId ? `/assets/thumbnails/${imageId}.png` : null
   const [position, setPosition] = useState(null)
   const [startOffset, setStartOffset] = useState(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -122,13 +121,15 @@ const Floater = ({ isOpen, onClose, title, content }) => {
 
   if (!isOpen || !position) return null
 
+  console.log('Floater isTall:', isTall, 'classes:', clsx(styles.floater, isTall && styles.tall))
+
   return (
     <div className={isAnimating? styles.containerAnim : styles.container }>
       <motion.div
         drag
         key={animKey}
         ref={floaterRef}
-        className={styles.floater}
+        className={clsx(styles.floater, isTall && styles.tall)}
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
@@ -153,9 +154,11 @@ const Floater = ({ isOpen, onClose, title, content }) => {
           </button>
           <h3>{title}</h3>
         </header>
-        <figure className = {styles.pic}>
-          <img src = {snakeImg} />
-        </figure>
+        {imageSrc && (
+          <figure className={styles.pic}>
+            <img src={imageSrc} />
+          </figure>
+        )}
         <p>{content}</p>
       </motion.div>
     </div>
