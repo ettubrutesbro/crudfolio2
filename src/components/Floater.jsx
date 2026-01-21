@@ -9,19 +9,14 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i 
 
   const imageSrc = imageId? `assets/thumbnails/${imageId}.png` : null
 
-  console.log(rowRect.top)
-  console.log(window.scrollY)
-  console.log(rowRect.top + window.scrollY)
 
   return (
     <div
       ref={containerRef}
       className={styles.mask}
       style={{
-        left: rowRect? -rowRect.left : '',
-        // left: 0,
-        // bottom: rowRect? rowRect.bottom - rowRect.top: '',
         width: '100vw',
+        left: rowRect? -rowRect.left : '',
         top: rowRect? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : '',
         height: rowRect? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : '',
         background: 'rgba(255,0,0,0.1)'
@@ -57,4 +52,13 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i 
   )
 }
 
+export const FloaterContainer = (props) => {
+  return (
+    <div className = {styles.floaterContainer}>
+      {props.children}
+    </div>
+  )
+}
+
 export default Floater
+

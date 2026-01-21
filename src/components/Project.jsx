@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useDuck } from '../App'
 
 import styles from './Project.module.css'
-import FloaterContainer from './FloaterContainer'
+import Floater, { FloaterContainer } from './Floater'
 
 const Project = (props) => {
   const rowRef = useRef(null)
@@ -43,9 +43,19 @@ export const ProjectList = (props) => {
             <ul className={styles.projectList}>
                 {props.children}
             </ul>
-            <FloaterContainer
-                activeFloaters={activeFloaters}
-            />
+            <FloaterContainer>
+              {activeFloaters.map((e,i)=> {
+                return <Floater
+                  key = {e.projectID}
+                  i = {e.i}
+                  title = {e.name}
+                  content = {e.blurb}
+                  isTall = {e.isTall}
+                  imageId = {e.id}
+                  rowRect = {e.rowRect}
+                />
+              })}
+            </FloaterContainer>
         </div>
     )
 }
