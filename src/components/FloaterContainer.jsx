@@ -8,6 +8,7 @@ const FloaterContainer = ({ activeFloaters }) => {
       {activeFloaters.map((e,i)=> {
         return <Floater
           key = {e.projectID}
+          i = {e.i}
           title = {e.name}
           content = {e.blurb}
           isTall = {e.isTall}

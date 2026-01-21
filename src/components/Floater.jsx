@@ -3,23 +3,27 @@ import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import clsx from 'clsx'
 import styles from './Floater.module.css'
 
-const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect }) => {
+const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i }) => {
   const containerRef = useRef()
   const floaterRef = useRef()
 
   const imageSrc = imageId? `assets/thumbnails/${imageId}.png` : null
 
+  console.log(rowRect.top)
+  console.log(window.scrollY)
+  console.log(rowRect.top + window.scrollY)
+
   return (
     <div
       ref={containerRef}
-      className={styles.containerAnim}
+      className={styles.mask}
       style={{
         left: rowRect? -rowRect.left : '',
         // left: 0,
         // bottom: rowRect? rowRect.bottom - rowRect.top: '',
         width: '100vw',
-        top: rowRect? -rowRect.top + 'px' : '',
-        height: rowRect? rowRect.top+rowRect.height-2 +'px' : '',
+        top: rowRect? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : '',
+        height: rowRect? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : '',
         background: 'rgba(255,0,0,0.1)'
       }}
     >
@@ -28,9 +32,9 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect }) 
         ref={floaterRef}
         className={clsx(styles.floater, isTall && styles.tall)}
         style = {{
-          //these values are where it should start, so begin the translation here
+          //these values are where it should start, so begin the
           left: rowRect? rowRect.left : '',
-          top: rowRect? rowRect.top + rowRect.height - 10 : ''
+          top: rowRect? rowRect.top + window.scrollY + rowRect.height - 10 : ''
         }}
       >
         <header>

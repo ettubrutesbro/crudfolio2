@@ -59,7 +59,7 @@
     /* pointer-events: none;  */
 }
 
-.containerAnim {
+.mask {
     border: 1px solid red;
     color: red;
     position: absolute;
