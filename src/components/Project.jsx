@@ -14,7 +14,8 @@ const Project = (props) => {
     console.log(`clicked rect ${rect.top} at ${e.clientX - rect.left}`)
     setFloaters({
       ...props,
-      rowRect: rect
+      rowRect: rect,
+      xOrigin: e.clientX - rect.left
     })
 
   }
@@ -34,7 +35,6 @@ const Project = (props) => {
 export const ProjectList = (props) => {
 
     const activeFloaters = useDuck((state) => state.activeFloaters)
-
     return (
         <div className={styles.projectsWrapper}>
             <h4 className={styles.header}> Selected projects:</h4>
@@ -46,11 +46,12 @@ export const ProjectList = (props) => {
                 return <Floater
                   key = {e.projectID}
                   i = {e.i}
-                  title = {e.name}
-                  content = {e.blurb}
+                  name = {e.name}
+                  blurb = {e.blurb}
                   isTall = {e.isTall}
                   imageId = {e.id}
                   rowRect = {e.rowRect}
+                  xOrigin = {e.xOrigin}
                 />
               })}
             </FloaterContainer>

@@ -3,7 +3,7 @@ import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import clsx from 'clsx'
 import styles from './Floater.module.css'
 
-const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i }) => {
+const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xOrigin }) => {
   const containerRef = useRef()
   const floaterRef = useRef()
 
@@ -19,7 +19,7 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i 
         left: rowRect? -rowRect.left : '',
         top: rowRect? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : '',
         height: rowRect? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : '',
-        background: 'rgba(255,0,0,0.1)'
+        // background: 'rgba(255,0,0,0.1)'
       }}
     >
       <motion.div
@@ -28,9 +28,15 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i 
         className={clsx(styles.floater, isTall && styles.tall)}
         style = {{
           //these values are where it should start, so begin the
-          left: rowRect? rowRect.left : '',
-          top: rowRect? rowRect.top + window.scrollY + rowRect.height - 10 : ''
+          //TODO: subtract half of floater width and constrain X
+          left: rowRect? rowRect.left + xOrigin : '',
+          
+          top: rowRect? rowRect.top + window.scrollY + rowRect.height - 100 : ''
         }}
+        initial = {{y: 100}}
+        animate = {{y: 0}}
+        // TODO: callback when animation completes..? prev. done with state and animate method
+        // transition
       >
         <header>
           <button
@@ -39,14 +45,14 @@ const Floater = ({ isOpen, onClose, title, content, isTall, imageId, rowRect, i 
           >
             ×
           </button>
-          <h3>{title}</h3>
+          <h3>{name}</h3>
         </header>
         {imageSrc && (
           <figure className={styles.pic}>
             <img src={imageSrc} />
           </figure>
         )}
-        <p>{content}</p>
+        <p>{blurb}</p>
       </motion.div>
     </div>
   )

@@ -51,8 +51,8 @@
 }
 
 .mask {
-    border: 1px solid red;
-    color: red;
+    /* border: 1px solid red; */
+    /* color: red; */
     position: absolute;
     top: 0;
     left: 0;
