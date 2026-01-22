@@ -6,6 +6,7 @@ import styles from './Floater.module.css'
 const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xOrigin }) => {
   const containerRef = useRef()
   const floaterRef = useRef()
+  const floaterWidth = isTall? 200 : 300
 
   const imageSrc = imageId? `assets/thumbnails/${imageId}.png` : null
 
@@ -29,7 +30,7 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
         style = {{
           //these values are where it should start, so begin the
           //TODO: subtract half of floater width and constrain X
-          left: rowRect? rowRect.left + xOrigin : '',
+          left: rowRect? rowRect.left + (Math.max(floaterWidth/2, Math.min(xOrigin,rowRect.width-floaterWidth/2)) - floaterWidth/2) : '',
           
           top: rowRect? rowRect.top + window.scrollY + rowRect.height - 100 : ''
         }}
