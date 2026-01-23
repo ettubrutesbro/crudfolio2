@@ -36,6 +36,7 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
         }}
         initial = {{y: 100}}
         animate = {{y: 0}}
+        onAnimationComplete = {()=>console.log('done')}
         // TODO: callback when animation completes..? prev. done with state and animate method
         // transition
       >

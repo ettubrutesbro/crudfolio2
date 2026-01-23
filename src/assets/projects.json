@@ -3,105 +3,211 @@
     "id": "compare",
     "name": "Drawing Compare",
     "year": "2025",
-    "blurb": "Redesigned drawing comparison for AutoCAD Web: from 0.2% usage on desktop to highest driver of adoption on web."
+    "blurb": "Redesigned drawing comparison for AutoCAD Web: from 0.2% usage on desktop to highest driver of adoption on web.",
+    "colors": {
+      "bg": "#3D4452",
+      "accent": "#232932",
+      "text": "#D9D9D9",
+      "btn": "#3EAEE0"
+    }
   },
   {
     "id": "search",
     "name": "Search",
     "year": "2025",
-    "blurb": "Multiple search features from 2022-2025, covering in-drawing text, tabbed dialogs (i.e. settings), and file manager (where I also handled front-end implementation)."
+    "blurb": "Multiple search features from 2022-2025, covering in-drawing text, tabbed dialogs (i.e. settings), and file manager (where I also handled front-end implementation).",
+    "colors": {
+      "bg": "#3D4452",
+      "accent": "#232932",
+      "text": "#D9D9D9",
+      "btn": "#3EAEE0"
+    }
   },
   {
     "id": "autocat",
     "name": "Hackathon t-shirt",
     "year": "2025",
-    "blurb": "Is it possible to design hackathon swag teammates actually want to wear? Reversing a decade-plus of \"no\" on our team through informal research, getting into the details of garment design, and cats."
+    "blurb": "Is it possible to design hackathon swag teammates actually want to wear? Reversing a decade-plus of \"no\" on our team through informal research, getting into the details of garment design, and cats.",
+    "colors": {
+      "bg": "#F7F3D6",
+      "accent": "#FF3384",
+      "text": "#2B2C58",
+      "btn": "#3EAEE0"
+    }
   },
   {
     "id": "snake",
     "name": "Year of the Snake poster",
     "year": "2025",
     "blurb": "Digital illustration → 2-color print to ring in last lunar new year, trying to overcome the snake's culturally-ubiquitous bad reputation.",
-    "isTall": true
-  },
+    "colors": {
+        "bg": "#EE0000",
+        "accent": "#EE0000",
+        "text": "#FFD506",
+        "btn": "#000000"
+      }
+    },
   {
     "id": "FDC",
     "name": "Capturing field data with LiDAR",
     "year": "2024",
-    "blurb": "New use case for AutoCAD mobile: integrating on-site mobile data capture into project drawings through photos, videos, and LiDAR / RoomPlan API."
+    "blurb": "New use case for AutoCAD mobile: integrating on-site mobile data capture into project drawings through photos, videos, and LiDAR / RoomPlan API.",
+    "colors": {
+      "bg": "#E8EDF7",
+      "accent": "#3D4452",
+      "text": "#232932",
+      "btn": "#3EAEE0"
+    }
   },
   {
     "id": "continuity",
     "name": "Cloud drawing continuity",
     "year": "2023",
-    "blurb": "Building trust in the cloud with a traditional, skeptical user base with highly-transparent, provider-agnostic file access across devices."
+    "blurb": "Building trust in the cloud with a traditional, skeptical user base with highly-transparent, provider-agnostic file access across devices.",
+    "colors": {
+      "bg": "#F7F3D6",
+      "accent": "#2A5992",
+      "text": "#2B2C58",
+      "btn": ""
+    }
   },
   {
     "id": "lisp",
     "name": "Custom LISP plugin support",
     "year": "2022",
-    "blurb": "Designing-by-code to support 40 years of customer-made plugins on Web for the first time."
+    "blurb": "Designing-by-code to support 40 years of customer-made plugins on Web for the first time.",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   },
   {
     "id": "notifs",
     "name": "Notifications refactor",
     "year": "2022",
-    "blurb": "Systematizing a decade-plus of ever-accumulating, customer-irritating messaging with a logical, extensible framework for notification design."
+    "blurb": "Systematizing a decade-plus of ever-accumulating, customer-irritating messaging with a logical, extensible framework for notification design.",
+    "colors": {
+      "bg": "#3D4452",
+      "accent": "#232932",
+      "text": "#D9D9D9",
+      "btn": "#3EAEE0"
+    }
   },
   {
     "id": "proteus",
     "name": "Web apps design technology",
     "year": "2019",
-    "blurb": "Design systems (Storybook, Figma API), human processes (design-engineering handoff, design systems compliance), engineering mentorship on the web apps team at Proteus Digital Health."
+    "blurb": "Design systems (Storybook, Figma API), human processes (design-engineering handoff, design systems compliance), engineering mentorship on the web apps team at Proteus Digital Health.",
+    "colors": {
+      "bg": "#F7F3D6",
+      "accent": "#FF6D33",
+      "text": "#000000",
+      "btn": "#002FFF"
+    }
   },
   {
     "id": "scorecard",
     "name": "Childrens' health scorecard",
     "year": "2018",
-    "blurb": "Solo 0→1 design and dev revolutionizing how Children Now advocates for kids' wellness with a dynamic, layered, and easy-to-explore data visualization for web and mobile, using SVG, React, styled-components, MobX, and Storybook."
+    "blurb": "Solo 0→1 design and dev revolutionizing how Children Now advocates for kids' wellness with a dynamic, layered, and easy-to-explore data visualization for web and mobile, using SVG, React, styled-components, MobX, and Storybook.",
+    "colors": {
+      "bg": "#DDDDDD",
+      "accent": "#000000",
+      "text": "#000000",
+      "btn": "#000000"
+    }
   },
   {
     "id": "salesnav",
     "name": "LinkedIn Sales Navigator integration",
     "year": "2017",
-    "blurb": "Solo 0→1 design and dev for Sendbloom's integration of marquee new LinkedIn feature: started to shipped in 1 week, to coincide with LinkedIn's official product announcement."
+    "blurb": "Solo 0→1 design and dev for Sendbloom's integration of marquee new LinkedIn feature: started to shipped in 1 week, to coincide with LinkedIn's official product announcement.",
+    "colors": {
+      "bg": "#E8EDF7",
+      "accent": "#416480",
+      "text": "#000000",
+      "btn": ""
+    }
   },
   {
     "id": "goals",
     "name": "Goals & Tasks tracking",
     "year": "2017",
-    "blurb": "Solo 0→1 design and dev of widget and panel designed for sales reps to track and rank their progress towards team-set goals on Sendbloom."
+    "blurb": "Solo 0→1 design and dev of widget and panel designed for sales reps to track and rank their progress towards team-set goals on Sendbloom.",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   },
   {
     "id": "aptec",
     "name": "Optimizing email campaigns",
     "year": "2017",
-    "blurb": "Solo 0→1 design and dev enabling sales reps to add new recipients into an ongoing email campaign, by user request - using animation to preserve context and delight across multiple steps."
+    "blurb": "Solo 0→1 design and dev enabling sales reps to add new recipients into an ongoing email campaign, by user request - using animation to preserve context and delight across multiple steps.",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   },
   {
     "name": "0→1 UI Component Library",
     "year": "2017",
-    "blurb": "As designer #2 on a <10-employee startup, learned, then single-handedly built React Storybook to systematize our UI engineering - evangelizing component reuse, extending components to meet engineers' needs, building my own designs in Storybook, and writing API docs."
+    "blurb": "As designer #2 on a <10-employee startup, learned, then single-handedly built React Storybook to systematize our UI engineering - evangelizing component reuse, extending components to meet engineers' needs, building my own designs in Storybook, and writing API docs.",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   },
   {
     "name": "Astronomical app onboarding",
     "year": "2016",
-    "blurb": "Designed+animated onboarding animation for swiping in Origami Logic's mobile app."
+    "blurb": "Designed+animated onboarding animation for swiping in Origami Logic's mobile app.",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   },
   {
     "name": "Social Energy Sensing Monument",
     "year": "2013-15",
-    "blurb": "Interactive installation that combines robotics, IoT, and a mobile web app into a public monument for engaging and enthralling a community with its own issues and the underlying data."
+    "blurb": "Interactive installation that combines robotics, IoT, and a mobile web app into a public monument for engaging and enthralling a community with its own issues and the underlying data.",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   },
   {
     "name": "Mars spaceflight mission design",
     "year": "2014",
-    "blurb": "Produced initial pitch animation, then final, one-shot (no \"camera cuts\") 15-minute presentation showcasing Eclipse Rocketry Club at Davis' proposal for a manned flyby of Mars. Took 4th place of 38 among international qualifiers for Inspiration Mars conference in Houston."
-
+    "blurb": "Produced initial pitch animation, then final, one-shot (no \"camera cuts\") 15-minute presentation showcasing Eclipse Rocketry Club at Davis' proposal for a manned flyby of Mars. Took 4th place of 38 among international qualifiers for Inspiration Mars conference in Houston.",
+      "colors": {
+        "bg": "",
+        "accent": "",
+        "text": "",
+        "btn": ""
+      }
   },
   {
     "name": "Assorted pitch videos",
     "year": "2012, 2015",
-    "blurb": "Animations promoting Stuffrage (startup incubating at Davis in 2012) and Wake (smart alarm clock which was successfully funded on Kickstarter), and myself (old portfolio reel from 2014 of pre-college and student design, 2007-2014)."
+    "blurb": "Animations promoting Stuffrage (startup incubating at Davis in 2012) and Wake (smart alarm clock which was successfully funded on Kickstarter), and myself (old portfolio reel from 2014 of pre-college and student design, 2007-2014).",
+    "colors": {
+      "bg": "",
+      "accent": "",
+      "text": "",
+      "btn": ""
+    }
   }
 ]
