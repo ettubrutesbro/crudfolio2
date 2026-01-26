@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect, useMemo, useLayoutEffect } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import clsx from 'clsx'
 import styles from './Floater.module.css'
@@ -6,31 +6,21 @@ import styles from './Floater.module.css'
 const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xOrigin, ...props }) => { //clean up later
 
   const [maskOn, setMask] = useState(true)
+  const [floaterHeight, setFloaterHeight] = useState(0)
 
   const containerRef = useRef()
   const floaterRef = useRef()
 
   const floaterWidth = isTall? 200 : 300
-  const floaterHeight = 200
+  useLayoutEffect(() =>  {
+    const rect = floaterRef.current.getBoundingClientRect()
+    console.log(`layout effect: floater height is ${rect.height}`)
+    setFloaterHeight(rect.height)
+  }, [])
 
   const imageSrc = imageId? `assets/thumbnails/${imageId}.png` : null
 
-    // const calculatePosition = () => {
-    //   // X: random position relative to parent, with variance
-    //   const xVariance = (Math.random() * 0.8 - 0.7) * floaterWidth
-    //   const x = 400 + xVariance // Base position from left of parent
-
-    //   // Y: position above the row (negative because parent is at 100% / bottom)
-    //   const yVariance = -Math.random() * 0.5 * floaterHeight
-    //   const y = -floaterHeight - yVariance
-
-    //   return { x, y }
-    // }
-
-  // const floaterStart = {
-  //   x: rowRect? rowRect.left + (Math.max(floaterWidth/2, Math.min(xOrigin,rowRect.width-floaterWidth/2)) - floaterWidth/2) : '',
-  //   y: rowRect? rowRect.top + window.scrollY + rowRect.height : ''
-  // }
+  const topThird = rowRect.top <= window.innerHeight/3
 
   const floaterStart = useMemo(() => {
     console.log('float recalc')
@@ -40,26 +30,27 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
       floaterWidth / 2, 
       Math.min(xOrigin, rowRect.width - floaterWidth / 2)
     )
-    
+    console.log(-floaterHeight)
     return {
       x: rowRect.left + clampedX - floaterWidth / 2,
-      y: rowRect.top + window.scrollY + rowRect.height
+      y: !topThird? rowRect.top + window.scrollY + rowRect.height : -floaterHeight
     }
-  }, [])
+  }, [floaterHeight])
 
   const maskData = useMemo(() => {
-    console.log('mask recalc')
+    //if the row is in the top third of the window, mask should start at top and extend towards bottom
+    //otherwise start at bottom of row and go to top of window
     return {
-      x: rowRect? -rowRect.left : '',
-      y: rowRect? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : '',
-      height: rowRect? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : ''
+      x: -rowRect.left,
+      y: !topThird? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : rowRect.height * i - 1,
+      height: !topThird? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : window.innerHeight - rowRect.top
     }
   }, [])
 
   //calculate offsets (position after animation) based on scrollposition vs. row position
-  //and on 
+  //and on dimension of floater + a randomized offset which determines direction and distance 
   const xOffset = 100
-  const yOffset = 100
+  const yOffset = !topThird? floaterHeight + 25 : -floaterHeight - 25
 
   return (
     <div
@@ -70,9 +61,9 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
         left:  maskData.x,
         top: maskData.y,
         height: maskData.height,
-        border: maskOn? '1px solid red' : 'none',
-        clipPath: maskOn? 'inset(0 0 0 0)' : 'none'
-        // background: 'rgba(255,0,0,0.1)'
+        // border: maskOn? '1px solid red' : 'none',
+        clipPath: maskOn? 'inset(0 0 0 0)' : 'none',
+        // background: maskOn? 'rgba(255,0,0,0.1)' : ''
       }}
     >
       <motion.div
@@ -86,12 +77,14 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
           // top: rowRect? rowRect.top + window.scrollY + rowRect.height - 100 : '',
           background: props.colors.bg || '',
           color: props.colors.text || '',
+          left: floaterStart.x,
+          top: floaterStart.y
         }}
-        initial = {{x: floaterStart.x, y: floaterStart.y}}
+        initial = {{x: 0, y: 0}}
         // animate = {{y: floaterStart.x + xOffset, y: floaterStart.y + yOffset}}
         animate = {{
-          x: floaterStart.x + 100,
-          y: floaterStart.y - 200
+          x: xOffset,
+          y: -yOffset
         }}
           transition={{
   x: {
