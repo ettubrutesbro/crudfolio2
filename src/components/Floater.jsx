@@ -3,7 +3,7 @@ import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import clsx from 'clsx'
 import styles from './Floater.module.css'
 
-const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xOrigin, ...props }) => { //clean up later
+const Floater = ({ isOpen, onClose, name, blurb, isTall, img, rowRect, i, xOrigin, ...props }) => { //clean up later
 
   const [maskOn, setMask] = useState(true)
   const [floaterHeight, setFloaterHeight] = useState(0)
@@ -18,7 +18,7 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
     setFloaterHeight(rect.height)
   }, [])
 
-  const imageSrc = imageId? `assets/thumbnails/${imageId}.png` : null
+  const imageSrc = img?.name ? `assets/thumbnails/${img.name}.png` : null
 
   const topThird = rowRect.top <= window.innerHeight/3
 
@@ -111,7 +111,11 @@ const Floater = ({ isOpen, onClose, name, blurb, isTall, imageId, rowRect, i, xO
         </header>
         {imageSrc && (
           <figure className={styles.pic}>
-            <img src={imageSrc} />
+            <img
+              src={imageSrc}
+              width={img?.width}
+              height={img?.height}
+            />
           </figure>
         )}
         <p>{blurb}</p>

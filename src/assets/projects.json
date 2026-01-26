@@ -10,7 +10,11 @@
       "text": "#D9D9D9",
       "btn": "#3EAEE0"
     },
-    "imageId": "compare"
+    "img": {
+      "name": "compare",
+      "width": 300,
+      "height": 165
+    }
   },
   {
     "id": "search",
@@ -23,7 +27,11 @@
       "text": "#D9D9D9",
       "btn": "#3EAEE0"
     },
-    "imageId": "search"
+    "img": {
+      "name": "search",
+      "width": 300,
+      "height": 86
+    }
   },
   {
     "id": "autocat",
@@ -35,6 +43,11 @@
       "accent": "#FF3384",
       "text": "#2B2C58",
       "btn": "#3EAEE0"
+    },
+    "img": {
+      "name": "autocat",
+      "width": 300,
+      "height": 272
     }
   },
   {
@@ -43,13 +56,17 @@
     "year": "2025",
     "blurb": "Digital illustration → 2-color print to ring in last lunar new year, trying to overcome the snake's culturally-ubiquitous bad reputation.",
     "isTall": true,
-    "imageId": "snake",
     "colors": {
         "bg": "#EE0000",
         "accent": "#EE0000",
         "text": "#FFD506",
         "btn": "#000000"
-      }
+      },
+    "img": {
+      "name": "snake",
+      "width": 200,
+      "height": 334
+    }
     },
   {
     "id": "FDC",
@@ -61,6 +78,11 @@
       "accent": "#3D4452",
       "text": "#232932",
       "btn": "#3EAEE0"
+    },
+    "img": {
+      "name": "FDC",
+      "width": 300,
+      "height": 148
     }
   },
   {
@@ -73,6 +95,11 @@
       "accent": "#2A5992",
       "text": "#2B2C58",
       "btn": ""
+    },
+    "img": {
+      "name": "continuity",
+      "width": 300,
+      "height": 158
     }
   },
   {
@@ -97,6 +124,11 @@
       "accent": "#232932",
       "text": "#D9D9D9",
       "btn": "#3EAEE0"
+    },
+    "img": {
+      "name": "notifs",
+      "width": 300,
+      "height": 213
     }
   },
   {
@@ -121,6 +153,11 @@
       "accent": "#000000",
       "text": "#000000",
       "btn": "#000000"
+    },
+    "img": {
+      "name": "scorecard",
+      "width": 300,
+      "height": 169
     }
   },
   {
@@ -133,6 +170,11 @@
       "accent": "#416480",
       "text": "#000000",
       "btn": ""
+    },
+    "img": {
+      "name": "salesnav",
+      "width": 300,
+      "height": 182
     }
   },
   {
