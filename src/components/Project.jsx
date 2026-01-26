@@ -8,6 +8,7 @@ const Project = (props) => {
   const rowRef = useRef(null)
   const setFloaters = useDuck((state) => state.setFloaters)
 
+  
   const handleClick = (e) => {
     const rect = rowRef.current.getBoundingClientRect()
     //THIS may be the point at which the mask needs to be calculated, so that it stays in state and is specific to each floater
@@ -44,14 +45,9 @@ export const ProjectList = (props) => {
             <FloaterContainer>
               {activeFloaters.map((e,i)=> {
                 return <Floater
-                  key = {e.projectID}
-                  i = {e.i}
-                  name = {e.name}
-                  blurb = {e.blurb}
-                  isTall = {e.isTall}
-                  imageId = {e.id}
-                  rowRect = {e.rowRect}
-                  xOrigin = {e.xOrigin}
+                  key = {e.id}
+                  // i = {e.i}
+                  {...e}
                 />
               })}
             </FloaterContainer>

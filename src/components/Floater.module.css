@@ -6,10 +6,11 @@
     background: #eeeeee;
     padding: 16px;
     z-index: 1000;
-    user-select: none;
+    /* user-select: none; */
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    pointer-events: all;
 }
 
 .floater.tall {
@@ -60,7 +61,7 @@
     height: 100%;
     pointer-events: none;
     z-index: 1000;
-    clip-path: inset(0 0 0 0);
+    /* clip-path: inset(0 0 0 0); */
 }
 
 

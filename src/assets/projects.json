@@ -40,6 +40,7 @@
     "name": "Year of the Snake poster",
     "year": "2025",
     "blurb": "Digital illustration → 2-color print to ring in last lunar new year, trying to overcome the snake's culturally-ubiquitous bad reputation.",
+    "isTall": true,
     "colors": {
         "bg": "#EE0000",
         "accent": "#EE0000",

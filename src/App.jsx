@@ -46,7 +46,7 @@ function App() {
             return (
               <Project
                 key = {`project-${i}`}
-                projectId = {p.id}
+                id = {p.id}
                 i = {i}
                 {...p}
               />
