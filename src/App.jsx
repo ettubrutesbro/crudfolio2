@@ -9,24 +9,19 @@ import {create} from 'zustand'
 export const useDuck = create((set) => ({
     activeFloaters: [],
     setFloaters: (newFloater) => set((state) => {
-      console.log('before:', state.activeFloaters)
-      console.log('toggling:', newFloater.id)
-      
+
       // Find if this floater already exists based on id (or another unique property)
       const existingIndex = state.activeFloaters.findIndex(f => f.id === newFloater.id)
-      
-      if (existingIndex !== -1) {
-        // Remove it if it exists
-        console.log('remove')
+      if (existingIndex !== -1) { // remove
         const newArray = [...state.activeFloaters]
         newArray.splice(existingIndex, 1)
         return { activeFloaters: newArray }
-      } else {
-        // Add it if it doesn't exist
-        console.log('add')
+      } else { //add
         return { activeFloaters: [...state.activeFloaters, newFloater] }
       }
     }),
+    zIndexCounter: 1000,
+    zIndexUp: () => set((state) => ({ zIndexCounter: state.zIndexCounter + 1 })),
     dragConstraints: null,
     setDragConstraints: (ref) => set((state) => ({dragConstraints: ref}))
 }))

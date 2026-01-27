@@ -14,9 +14,16 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
 
   const isTall = img?.height > img?.width
   const floaterWidth = isTall? 200 : 300
+  const topThird = rowRect.top <= window.innerHeight/3
+
+  const [zIndex, setZIndex] = useState()
+
   const setFloaters = useDuck((state) => state.setFloaters)
   const constraintsRef = useDuck((state) => state.dragConstraints)
-  const topThird = rowRect.top <= window.innerHeight/3
+  const zIndexCounter = useDuck((state) => state.zIndexCounter)
+  const zIndexUp = useDuck((state) => state.getNextZIndex)
+
+
 
   const imageSrc = img?.name ? `assets/thumbnails/${img.name}.png` : null
 
@@ -26,7 +33,6 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     console.log(`layout effect: floater height is ${rect.height}`)
     setFloaterHeight(rect.height)
   }, [])
-
 
 
   const floaterStart = useMemo(() => {
@@ -52,6 +58,11 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     }
   }, [])
 
+  const handleDragStart = () => {
+    zIndexUp()
+    setZIndex(zIndexCounter + 1)
+  }
+
   const handleClose = () => {
     setFloaters({id: props.id})
   }
@@ -67,13 +78,14 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     <>
    
     <div
-      className={styles.mask}
+      className={clsx(styles.mask)}
       style={{
         width: '100vw',
         left:  maskData.x,
         top: maskData.y,
         height: maskData.height,
         clipPath: maskOn? 'inset(0 0 0 0)' : 'none',
+        zIndex: zIndex,
         // border: maskOn? '1px solid red' : 'none',
         // background: maskOn? 'rgba(255,0,0,0.1)' : ''
       }}
@@ -86,6 +98,8 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         }}
         dragMomentum = {false}
         dragConstraints = {constraintsRef}
+        onDragStart = {handleDragStart}
+
         ref={floaterRef}
         className={clsx(styles.floater, isTall && styles.tall)}
         style = {{
