@@ -41,8 +41,21 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     setFloaterHeight(rect.height)
   }, [])
 
+    // Mask positioning captured once on mount — derived from stable props and frozen window values
+  const maskDataRef = useRef({
+    x: -rowRect.left,
+    // If row is in top third, mask starts at top and extends down; otherwise starts at bottom of row and goes up
+    y: !topThird ? -((rowRect.top + initialWindow.scrollY) - (rowRect.height * i)) + 'px' : rowRect.height * i - 1,
+    height: !topThird ? (rowRect.top) + initialWindow.scrollY + rowRect.height - 2 + 'px' : initialWindow.innerHeight - rowRect.top
+  })
+  const maskData = maskDataRef.current
 
   const floaterStart = useMemo(() => {
+    //determines "start" position (the "tucked-away" origin before floater animates out, becoming visible)
+    //x based on xOrigin (where the mouse clicked the row) but limited so start doesnt stick out from row itself
+    //y is either at bottom of project row (scroll + distance from top + row height) or tangent above row if row
+    //is in top-third Y of screen (so it animates down, not up)
+
     console.log('float recalc')
     if (!rowRect) return { x: '', y: '' }
     const clampedX = Math.max(
@@ -55,15 +68,7 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     }
   }, [floaterHeight])
 
-  const maskData = useMemo(() => {
-    //if the row is in the top third of the window, mask should start at top and extend towards bottom
-    //otherwise start at bottom of row and go to top of window
-    return {
-      x: -rowRect.left,
-      y: !topThird ? -((rowRect.top + initialWindow.scrollY) - (rowRect.height * i)) + 'px' : rowRect.height * i - 1,
-      height: !topThird ? (rowRect.top) + initialWindow.scrollY + rowRect.height - 2 + 'px' : initialWindow.innerHeight - rowRect.top
-    }
-  }, [])
+
 
   const handleDragStart = () => {
     zIndexUp()
@@ -82,8 +87,6 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
 
 
   return (
-    <>
-   
     <div
       className={clsx(styles.mask)}
       style={{
@@ -159,7 +162,6 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         <p>{blurb}</p>
       </motion.div>
     </div>
-    </>
   )
 }
 
