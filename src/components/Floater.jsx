@@ -9,6 +9,7 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
 
   const [maskOn, setMask] = useState(true)
   const [floaterHeight, setFloaterHeight] = useState(0)
+  const [lockedPosition, setLockedPosition] = useState(null)
 
   const floaterRef = useRef()
 
@@ -21,7 +22,7 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
   const setFloaters = useDuck((state) => state.setFloaters)
   const constraintsRef = useDuck((state) => state.dragConstraints)
   const zIndexCounter = useDuck((state) => state.zIndexCounter)
-  const zIndexUp = useDuck((state) => state.getNextZIndex)
+  const zIndexUp = useDuck((state) => state.zIndexUp)
 
 
 
@@ -105,16 +106,16 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         style = {{
           background: props.colors.bg || '',
           color: props.colors.text || '',
-          left: floaterStart.x,
-          top: floaterStart.y
+          left: lockedPosition ? lockedPosition.x : floaterStart.x,
+          top: lockedPosition ? lockedPosition.y : floaterStart.y
         }}
-        initial = {{x: 0, y: 0, rotate: !topThird? -10 : 45}}
-        animate = {{
+        initial = {lockedPosition ? false : {x: 0, y: 0, rotate: !topThird? -10 : 45}}
+        animate = {lockedPosition ? false : {
           x: xOffset,
           y: -yOffset,
           rotate: 0
         }}
-        transition={{
+        transition={lockedPosition ? undefined : {
           x: {
             duration: 0.6,
             ease: [0.43, 0.13, 0.23, 0.96]  // Custom bezier
@@ -127,7 +128,15 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
             duration: 0.8
           }
         }}
-        onAnimationComplete = {()=>{setMask(false)}}
+        onAnimationComplete = {() => {
+          setMask(false)
+          // Lock the floater's final position so it doesn't depend on stale rowRect
+          const rect = floaterRef.current.getBoundingClientRect()
+          setLockedPosition({
+            x: rect.left + window.scrollX,
+            y: rect.top + window.scrollY
+          })
+        }}
       >
         <header>
           <button
