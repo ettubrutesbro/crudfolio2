@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useLayoutEffect } from 'react'
-import { motion, useMotionValue, useTransform, animate } from 'motion/react'
+import { motion } from 'motion/react'
 import clsx from 'clsx'
 
 import { useDuck } from '../App'
@@ -9,13 +9,19 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
 
   const [maskOn, setMask] = useState(true)
   const [floaterHeight, setFloaterHeight] = useState(0)
-  const [lockedPosition, setLockedPosition] = useState(null)
 
   const floaterRef = useRef()
 
   const isTall = img?.height > img?.width
   const floaterWidth = isTall? 200 : 300
-  const topThird = rowRect.top <= window.innerHeight/3
+
+  // Capture window values once on mount so resize doesn't affect positioning
+  const initialWindowRef = useRef({
+    scrollY: window.scrollY,
+    innerHeight: window.innerHeight
+  })
+  const initialWindow = initialWindowRef.current
+  const topThird = rowRect.top <= initialWindow.innerHeight / 3
 
   const [zIndex, setZIndex] = useState()
 
@@ -40,12 +46,12 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     console.log('float recalc')
     if (!rowRect) return { x: '', y: '' }
     const clampedX = Math.max(
-      floaterWidth / 2, 
+      floaterWidth / 2,
       Math.min(xOrigin, rowRect.width - floaterWidth / 2)
     )
     return {
       x: rowRect.left + clampedX - floaterWidth / 2,
-      y: !topThird? rowRect.top + window.scrollY + rowRect.height : -floaterHeight
+      y: !topThird ? rowRect.top + initialWindow.scrollY + rowRect.height : -floaterHeight
     }
   }, [floaterHeight])
 
@@ -54,8 +60,8 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     //otherwise start at bottom of row and go to top of window
     return {
       x: -rowRect.left,
-      y: !topThird? -((rowRect.top+window.scrollY)-(rowRect.height*i))  + 'px' : rowRect.height * i - 1,
-      height: !topThird? (rowRect.top)+window.scrollY+rowRect.height-2 +'px' : window.innerHeight - rowRect.top
+      y: !topThird ? -((rowRect.top + initialWindow.scrollY) - (rowRect.height * i)) + 'px' : rowRect.height * i - 1,
+      height: !topThird ? (rowRect.top) + initialWindow.scrollY + rowRect.height - 2 + 'px' : initialWindow.innerHeight - rowRect.top
     }
   }, [])
 
@@ -106,16 +112,16 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         style = {{
           background: props.colors.bg || '',
           color: props.colors.text || '',
-          left: lockedPosition ? lockedPosition.x : floaterStart.x,
-          top: lockedPosition ? lockedPosition.y : floaterStart.y
+          left: floaterStart.x,
+          top: floaterStart.y
         }}
-        initial = {lockedPosition ? false : {x: 0, y: 0, rotate: !topThird? -10 : 45}}
-        animate = {lockedPosition ? false : {
+        initial = {{x: 0, y: 0, rotate: !topThird? -10 : 45}}
+        animate = {{
           x: xOffset,
           y: -yOffset,
           rotate: 0
         }}
-        transition={lockedPosition ? undefined : {
+        transition={{
           x: {
             duration: 0.6,
             ease: [0.43, 0.13, 0.23, 0.96]  // Custom bezier
@@ -130,12 +136,6 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         }}
         onAnimationComplete = {() => {
           setMask(false)
-          // Lock the floater's final position so it doesn't depend on stale rowRect
-          const rect = floaterRef.current.getBoundingClientRect()
-          setLockedPosition({
-            x: rect.left + window.scrollX,
-            y: rect.top + window.scrollY
-          })
         }}
       >
         <header>
