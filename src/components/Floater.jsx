@@ -30,18 +30,16 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
   const zIndexCounter = useDuck((state) => state.zIndexCounter)
   const zIndexUp = useDuck((state) => state.zIndexUp)
 
-
-
   const imageSrc = img?.name ? `assets/thumbnails/${img.name}.png` : null
 
 
   useLayoutEffect(() =>  {
+    //floater height needed for starting mount animation in concealment
     const rect = floaterRef.current.getBoundingClientRect()
-    console.log(`layout effect: floater height is ${rect.height}`)
     setFloaterHeight(rect.height)
   }, [])
 
-    // Mask positioning captured once on mount — derived from stable props and frozen window values
+  // Mask positioning captured once on mount — derived from stable props and frozen window values
   const maskDataRef = useRef({
     x: -rowRect.left,
     // If row is in top third, mask starts at top and extends down; otherwise starts at bottom of row and goes up
@@ -55,9 +53,6 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     //x based on xOrigin (where the mouse clicked the row) but limited so start doesnt stick out from row itself
     //y is either at bottom of project row (scroll + distance from top + row height) or tangent above row if row
     //is in top-third Y of screen (so it animates down, not up)
-
-    console.log('float recalc')
-    if (!rowRect) return { x: '', y: '' }
     const clampedX = Math.max(
       floaterWidth / 2,
       Math.min(xOrigin, rowRect.width - floaterWidth / 2)
@@ -67,7 +62,6 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
       y: !topThird ? rowRect.top + initialWindow.scrollY + rowRect.height : -floaterHeight
     }
   }, [floaterHeight])
-
 
 
   const handleDragStart = () => {

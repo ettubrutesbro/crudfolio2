@@ -7,6 +7,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* max-width: 1920px; */
     /* margin: 200px auto; */
     /* padding: 2rem; */
 }
@@ -15,4 +16,12 @@ article {
     padding: 2rem;
     margin: 10rem auto;
     max-width: 720px;
+}
+address {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: right;
+  gap: 24px;
+  text-decoration: underline;
+  width: 100%;
 }
