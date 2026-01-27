@@ -98,7 +98,8 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         drag
         whileDrag = {{
           scale: 1.05,
-          boxShadow: '4px 4px 6px rgba(0,0,0,0.45)'
+          boxShadow: '4px 4px 6px rgba(0,0,0,0.45)',
+          cursor: 'grabbing'
         }}
         dragMomentum = {false}
         dragConstraints = {constraintsRef}

@@ -7,17 +7,26 @@ import Floater, { FloaterContainer } from './Floater'
 const Project = (props) => {
   const rowRef = useRef(null)
   const setFloaters = useDuck((state) => state.setFloaters)
+  const getFloaters = useDuck((state) => state.activeFloaters)
 
   
   const handleClick = (e) => {
     const rect = rowRef.current.getBoundingClientRect()
     //THIS may be the point at which the mask needs to be calculated, so that it stays in state and is specific to each floater
     console.log(`clicked rect ${rect.top} at ${e.clientX - rect.left}`)
-    setFloaters({
-      ...props,
-      rowRect: rect,
-      xOrigin: e.clientX - rect.left
-    })
+
+    const alreadyActive = getFloaters.findIndex(f => f.id === props.id) !== -1
+    if(!alreadyActive){ //show floater
+       setFloaters({
+        ...props,
+        rowRect: rect,
+        xOrigin: e.clientX - rect.left
+      })
+    }
+    else{ //wiggle floater
+      
+    }
+   
 
   }
 
@@ -25,7 +34,7 @@ const Project = (props) => {
     <li
       ref={rowRef}
       className={styles.project}
-      onClick={!props.isFloaterOpen ? handleClick : undefined}
+      onClick={handleClick}
     >
       <div>{props.name}</div>
       <div>{props.year}</div>

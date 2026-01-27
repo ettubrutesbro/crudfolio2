@@ -12,6 +12,7 @@
     box-sizing: border-box;
     pointer-events: all;
     box-shadow: 2px 2px 3px rgba(0,0,0,0.25);
+    cursor: grab;
 }
 
 .floater.tall {
@@ -67,9 +68,6 @@
     /* clip-path: inset(0 0 0 0); */
 }
 
-.dragging {
-    z-index: 1001;
-}
 .pic {
     width: 100%;
     margin: 0 0 12px 0;
