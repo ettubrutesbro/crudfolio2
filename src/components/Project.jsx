@@ -8,6 +8,7 @@ const Project = (props) => {
   const rowRef = useRef(null)
   const setFloaters = useDuck((state) => state.setFloaters)
   const getFloaters = useDuck((state) => state.activeFloaters)
+  const bringToFront = useDuck((state) => state.bringToFront)
 
   
   const handleClick = (e) => {
@@ -24,7 +25,7 @@ const Project = (props) => {
       })
     }
     else{ //wiggle floater
-      
+      bringToFront(props.id)
     }
    
 

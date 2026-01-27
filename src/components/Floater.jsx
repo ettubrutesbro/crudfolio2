@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { useDuck } from '../App'
 import styles from './Floater.module.css'
 
-const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...props }) => { //clean up later
+const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, zIndex, ...props }) => { //clean up later
 
   const [maskOn, setMask] = useState(true)
   const [floaterHeight, setFloaterHeight] = useState(0)
@@ -23,12 +23,9 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
   const initialWindow = initialWindowRef.current
   const topThird = rowRect.top <= initialWindow.innerHeight / 3
 
-  const [zIndex, setZIndex] = useState()
-
   const setFloaters = useDuck((state) => state.setFloaters)
   const constraintsRef = useDuck((state) => state.dragConstraints)
-  const zIndexCounter = useDuck((state) => state.zIndexCounter)
-  const zIndexUp = useDuck((state) => state.zIndexUp)
+  const bringToFront = useDuck((state) => state.bringToFront)
 
   const imageSrc = img?.name ? `assets/thumbnails/${img.name}.png` : null
 
@@ -65,8 +62,7 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
 
 
   const handleDragStart = () => {
-    zIndexUp()
-    setZIndex(zIndexCounter + 1)
+    bringToFront(props.id)
   }
 
   const handleClose = () => {

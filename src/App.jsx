@@ -16,8 +16,21 @@ export const useDuck = create((set) => ({
         const newArray = [...state.activeFloaters]
         newArray.splice(existingIndex, 1)
         return { activeFloaters: newArray }
-      } else { //add
-        return { activeFloaters: [...state.activeFloaters, newFloater] }
+      } else { //add, assigning current zIndexCounter as its zIndex
+        return {
+          activeFloaters: [...state.activeFloaters, { ...newFloater, zIndex: state.zIndexCounter }],
+          zIndexCounter: state.zIndexCounter + 1
+        }
+      }
+    }),
+    // Brings a floater to front by updating its zIndex in activeFloaters
+    bringToFront: (id) => set((state) => {
+      const newZIndex = state.zIndexCounter + 1
+      return {
+        activeFloaters: state.activeFloaters.map(f =>
+          f.id === id ? { ...f, zIndex: newZIndex } : f
+        ),
+        zIndexCounter: newZIndex
       }
     }),
     zIndexCounter: 1000,
