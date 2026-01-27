@@ -24,11 +24,14 @@ export const useDuck = create((set) => ({
       }
     }),
     // Brings a floater to front by updating its zIndex in activeFloaters
-    bringToFront: (id) => set((state) => {
+    // Optional shouldWiggle flag triggers attention animation (stores timestamp for re-triggering)
+    bringToFront: (id, { shouldWiggle = false } = {}) => set((state) => {
       const newZIndex = state.zIndexCounter + 1
       return {
         activeFloaters: state.activeFloaters.map(f =>
-          f.id === id ? { ...f, zIndex: newZIndex } : f
+          f.id === id
+            ? { ...f, zIndex: newZIndex, ...(shouldWiggle && { wiggle: Date.now() }) }
+            : f
         ),
         zIndexCounter: newZIndex
       }

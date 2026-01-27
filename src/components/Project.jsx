@@ -25,7 +25,7 @@ const Project = (props) => {
       })
     }
     else{ //wiggle floater
-      bringToFront(props.id)
+      bringToFront(props.id, { shouldWiggle: true })
     }
    
 

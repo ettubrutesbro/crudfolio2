@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { useDuck } from '../App'
 import styles from './Floater.module.css'
 
-const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, zIndex, ...props }) => { //clean up later
+const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, zIndex, wiggle, ...props }) => { //clean up later
 
   const [maskOn, setMask] = useState(true)
   const [floaterHeight, setFloaterHeight] = useState(0)
@@ -60,6 +60,16 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, zInde
     }
   }, [floaterHeight])
 
+
+  // Watch for wiggle trigger (timestamp change) and run attention animation
+  useEffect(() => {
+    if (!wiggle) return
+
+    // TODO: Implement wiggle/scroll-into-view animation here
+    // e.g., check if floater is in viewport, scroll if needed, then shake
+    console.log('wiggle triggered for', props.id)
+
+  }, [wiggle])
 
   const handleDragStart = () => {
     bringToFront(props.id)
