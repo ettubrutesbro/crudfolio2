@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef, useLayoutEffect } from 'react'
 import './App.css'
+import './App.module.css'
 import PROJECTS from './assets/projects.json'
 import Project, {ProjectList} from './components/Project'
 
@@ -25,14 +26,23 @@ export const useDuck = create((set) => ({
         console.log('add')
         return { activeFloaters: [...state.activeFloaters, newFloater] }
       }
-    })
+    }),
+    dragConstraints: null,
+    setDragConstraints: (ref) => set((state) => ({dragConstraints: ref}))
 }))
 
 function App() {
 
+  const bodyRef = useRef(null)
+  const setBodyAsDragConstraints = useDuck((state) => state.setDragConstraints)
+
+  useLayoutEffect(()=>{
+    console.log('setting main as drag constraint')
+    setBodyAsDragConstraints(bodyRef)
+  }, [])
 
   return (
-    <>
+    <main ref = {bodyRef}>
       <article>
         <h1> Jack Leng </h1>
         <p>I design and code software, animate, illustrate and make prints. </p>
@@ -54,7 +64,7 @@ function App() {
           })}
         </ProjectList>
       </article>
-    </>
+    </main>
   )
 }
 

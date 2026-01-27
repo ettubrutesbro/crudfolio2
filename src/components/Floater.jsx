@@ -10,11 +10,12 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
   const [maskOn, setMask] = useState(true)
   const [floaterHeight, setFloaterHeight] = useState(0)
 
-  const containerRef = useRef()
   const floaterRef = useRef()
+
   const isTall = img?.height > img?.width
   const floaterWidth = isTall? 200 : 300
   const setFloaters = useDuck((state) => state.setFloaters)
+  const constraintsRef = useDuck((state) => state.dragConstraints)
   const topThird = rowRect.top <= window.innerHeight/3
 
   const imageSrc = img?.name ? `assets/thumbnails/${img.name}.png` : null
@@ -63,8 +64,9 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
 
 
   return (
+    <>
+   
     <div
-      ref={containerRef}
       className={styles.mask}
       style={{
         width: '100vw',
@@ -78,6 +80,12 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
     >
       <motion.div
         drag
+        whileDrag = {{
+          scale: 1.05,
+          boxShadow: '4px 4px 6px rgba(0,0,0,0.45)'
+        }}
+        dragMomentum = {false}
+        dragConstraints = {constraintsRef}
         ref={floaterRef}
         className={clsx(styles.floater, isTall && styles.tall)}
         style = {{
@@ -100,6 +108,9 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
           y: {
             duration: 0.4,
             ease: [0.22, 0.61, 0.36, 1]
+          },
+          rotation: {
+            duration: 0.8
           }
         }}
         onAnimationComplete = {()=>{setMask(false)}}
@@ -125,6 +136,7 @@ const Floater = ({ isOpen, onClose, name, blurb, img, rowRect, i, xOrigin, ...pr
         <p>{blurb}</p>
       </motion.div>
     </div>
+    </>
   )
 }
 
